@@ -1,6 +1,6 @@
 use borsh::{BorshDeserialize, BorshSerialize};
 use crosstown_bus::{CrosstownBus, MessageHandler, HandleError};
-
+use std::{thread, time};
 
 #[derive(Debug, Clone, BorshDeserialize, BorshSerialize)]
 pub struct UserCreatedEventMessage {
@@ -11,16 +11,20 @@ pub struct UserCreatedEventMessage {
 pub struct UserCreatedHandler;
 
 impl MessageHandler<UserCreatedEventMessage> for UserCreatedHandler {
-    fn handle(&self, message: Box<UserCreatedEventMessage>
-    ) -> Result<(), HandleError> {
-        println!("Message received: {:?}", message);
+    fn handle(&self, message: Box<UserCreatedEventMessage>) -> Result<(), HandleError> {
+        let ten_millis = time::Duration::from_millis(1000);
+        let _now = time::Instant::now();
+
+        thread::sleep(ten_millis);
+
+        println!("In priyapta's Computer [2306245106]. Message Received: {:?}", message);
         Ok(())
     }
 
-    fn get_handler_action(&self) -> String {
-        "user_created".to_owned()
-    }
+    fn get_handler_action(&self) -> String {"user_created".to_string()}
 }
+
+
 
 fn main() {
     let listener = CrosstownBus::new_queue_listener("amqp://guest:guest@localhost:5672".to_owned()).unwrap();
