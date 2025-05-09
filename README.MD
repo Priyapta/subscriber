@@ -13,7 +13,7 @@ Jika dilihat dari chart RabbitMQ diatas, Queued messages mencapai hingga 75, Ini
 ![alt text](image6.png)
 ![alt text](image5.png)
 
-- Grafik pada RabbitMQ menunjukkan adanya burst pada proses publish dari publisher, sementara beberapa subscriber mulai mengonsumsi pesan dalam waktu yang hampir bersamaan. Publisher mengirim pesan lebih cepat daripada kemampuan subscriber untuk memprosesnya, sehingga antrean sempat menumpuk. Namun, antrean tersebut kemudian menurun karena subscriber memproses pesan secara bertahap, meskipun ada delay sleep(1000ms).
+- Grafik pada RabbitMQ menunjukkan terjadinya burst pada proses publish dari publisher, sementara beberapa subscriber mulai mengonsumsi pesan hampir secara bersamaan. Publisher mengirim pesan lebih cepat dibandingkan kemampuan subscriber dalam memprosesnya, sehingga antrean sempat menumpuk. Namun, antrean kembali menurun karena subscriber memproses pesan secara bertahap, meskipun terdapat delay sleep(1000ms).
 
-Beberapa perbaikan yang dapat dilakukan pada kode publisher dan subscriber antara lain adalah dengan menerapkan method get_handler_action untuk mencegah terjadinya panic serta mengurangi duplikasi kode pada publisher dengan menggunakan loop.
+Beberapa perbaikan yang dapat diterapkan pada kode publisher dan subscriber antara lain penggunaan method get_handler_action untuk mencegah panic, serta pengurangan duplikasi kode pada publisher dengan memanfaatkan loop.
 
